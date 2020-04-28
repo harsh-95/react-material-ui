@@ -1,33 +1,46 @@
-import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
 import { Header, Footer } from "./Layouts";
 import Exercise from "./Exercises/";
 import { muscles, exercises } from "../store";
 
-fetchExercisesByMuscles = () => {
-  return Object.entries(
-    exercises.reduce((exercises, exercise) => {
-      const { muscles } = exercise;
+export default class App extends Component {
+  state = {
+    exercises: exercises,
+    category: ""
+  };
 
-      exercises[muscles] = exercises[muscles]
-        ? [...exercises[muscles], exercise]
-        : [exercise];
-      return exercises;
-    }, {})
-  );
-};
+  fetchExercisesByMuscles = () => {
+    return Object.entries(
+      this.state.exercises.reduce((exercises, exercise) => {
+        const { muscles } = exercise;
 
-export default function App() {
-  const [exercises, setExercises] = useState([]);
+        exercises[muscles] = exercises[muscles]
+          ? [...exercises[muscles], exercise]
+          : [exercise];
+        return exercises;
+      }, {})
+    );
+  };
 
-  useEffect(() => {
-    setExercises(fetchExercisesByMuscles());
-  }, []);
+  handleCategorySelect = value => {
+    console.log(value);
+    this.setState({
+      category: value
+    });
+  };
 
-  return (
-    <div>
-      <Header />
-      <Exercise exercises={exercises} />
-      <Footer />
-    </div>
-  );
+  render() {
+    const exercises = this.fetchExercisesByMuscles();
+    return (
+      <div>
+        <Header />
+        <Exercise exercises={exercises} category={this.state.category} />
+        <Footer
+          muscles={muscles}
+          category={this.state.category}
+          onSelect={this.handleCategorySelect}
+        />
+      </div>
+    );
+  }
 }
