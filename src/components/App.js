@@ -26,7 +26,7 @@ export default function App() {
   return (
     <div>
       <Header />
-      <Exercise />
+      <Exercise exercises={exercises} />
       <Footer />
     </div>
   );
