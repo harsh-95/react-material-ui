@@ -37,12 +37,22 @@ export default class App extends Component {
     }));
   };
 
+  handleExerciseCreate = (exercise) => {
+    console.log('bb');console.log(exercise);console.log(this.state.exercises);
+    this.setState(({excercises})=>({
+      exercises: [...exercises, exercise]
+    }))
+  }
+
   render() {
     const exercises = this.fetchExercisesByMuscles();
 
     return (
       <div>
-        <Header />
+        <Header
+          muscles={muscles}
+          onExerciseCreate={this.handleExerciseCreate}
+        />
         <Exercise
           exercises={exercises}
           category={this.state.category}
