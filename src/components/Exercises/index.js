@@ -5,7 +5,8 @@ import {
   Typography,
   List,
   ListItem,
-  ListItemText
+  ListItemText,
+  styled
 } from "@material-ui/core";
 
 const styles = {
@@ -17,6 +18,11 @@ const styles = {
     overflowY: "auto"
   }
 };
+
+const StyledListItem = styled(ListItem)({
+  paddingTop: 0,
+  paddingBottom: 0
+});
 
 const Exercise = ({
   exercises,
@@ -43,9 +49,9 @@ const Exercise = ({
                 </Typography>
                 <List component="ul">
                   {exercises.map(({ id, title }, i) => (
-                    <ListItem button key={i} onClick={() => onSelect(id)}>
+                    <StyledListItem button key={i} onClick={() => onSelect(id)}>
                       <ListItemText primary={title} />
-                    </ListItem>
+                    </StyledListItem>
                   ))}
                 </List>
               </Fragment>
@@ -55,7 +61,7 @@ const Exercise = ({
       </Grid>
       <Grid item xs>
         <Paper style={styles.Paper}>
-          <Typography variant="h5">{title}</Typography>
+          <Typography variant="h6">{title}</Typography>
           <Typography variant="body2">{description}</Typography>
         </Paper>
       </Grid>

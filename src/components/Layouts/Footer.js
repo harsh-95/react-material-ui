@@ -16,6 +16,8 @@ const Footer = ({ muscles, category, onSelect }) => {
         }
         indicatorColor="primary"
         textColor="primary"
+        variant="scrollable"
+        scrollButtons="auto"
         centered
       >
         <Tab label="All" />

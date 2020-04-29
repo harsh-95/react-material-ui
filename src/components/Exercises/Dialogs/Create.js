@@ -52,7 +52,7 @@ class CreateExercise extends Component {
       const {exercise} = this.state;
       console.log('aa');console.log(exercise);
     this.props.onCreate(exercise);
-    
+
     this.setState({
         open:false,
         exercise:{
@@ -97,7 +97,7 @@ class CreateExercise extends Component {
               className={classes.formControl}
             />
             <FormControl className={classes.formControl}>
-              <InputLabel>Age</InputLabel>
+              <InputLabel>Muscles</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 value={muscle}
