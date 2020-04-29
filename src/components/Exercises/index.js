@@ -13,12 +13,21 @@ const styles = {
     padding: 20,
     marginTop: 10,
     marginBottom: 10,
-    height: 500,
+    height: 450,
     overflowY: "auto"
   }
 };
 
-const Exercise = ({ exercises, category }) => {
+const Exercise = ({
+  exercises,
+  category,
+  onSelect,
+  exercise: {
+    id,
+    title = "Welcome!",
+    description = "Please select an exercise from left"
+  }
+}) => {
   return (
     <Grid container>
       <Grid item xs>
@@ -33,8 +42,8 @@ const Exercise = ({ exercises, category }) => {
                   {group}
                 </Typography>
                 <List component="ul">
-                  {exercises.map(({ title }, i) => (
-                    <ListItem button key={i}>
+                  {exercises.map(({ id, title }, i) => (
+                    <ListItem button key={i} onClick={() => onSelect(id)}>
                       <ListItemText primary={title} />
                     </ListItem>
                   ))}
@@ -46,10 +55,8 @@ const Exercise = ({ exercises, category }) => {
       </Grid>
       <Grid item xs>
         <Paper style={styles.Paper}>
-          <Typography variant="h5">Welcome!</Typography>
-          <Typography variant="subheading">
-            Please select an exercise
-          </Typography>
+          <Typography variant="h5">{title}</Typography>
+          <Typography variant="body2">{description}</Typography>
         </Paper>
       </Grid>
     </Grid>
