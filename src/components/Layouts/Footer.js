@@ -18,7 +18,6 @@ const Footer = ({ muscles, category, onSelect }) => {
         textColor="primary"
         variant="scrollable"
         scrollButtons="auto"
-        centered
       >
         <Tab label="All" />
         {muscles.map((muscle, i) => (

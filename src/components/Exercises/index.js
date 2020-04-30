@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, Component } from "react";
 import {
   Grid,
   Paper,
@@ -8,6 +8,10 @@ import {
   ListItemText,
   styled
 } from "@material-ui/core";
+
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 
 const styles = {
   Paper: {
@@ -20,25 +24,43 @@ const styles = {
 };
 
 const StyledListItem = styled(ListItem)({
-  paddingTop: 0,
+  paddingLeft: 32,
   paddingBottom: 0
 });
 
-const Exercise = ({
-  exercises,
-  category,
-  onSelect,
-  exercise: {
-    id,
-    title = "Welcome!",
-    description = "Please select an exercise from left"
+class Exercise extends Component{
+
+  state = {
+    open: {arms: true, back: true, chest: true, legs: true, shoulders: true}
   }
-}) => {
+
+  handleClick = name => {
+    console.log(name);
+    this.setState((prevState)=>({
+      open: {
+        ...prevState.open, [name]: !prevState.open[name] 
+      }
+    }));
+  }
+  
+render(){
+
+  const {
+    exercises,
+    category,
+    onSelect,
+    exercise: {
+      id,
+      title= "Welcome!",
+      description= "Please select an exercise from left"
+    }
+  } = this.props;
+
   return (
     <Grid container>
       <Grid item xs>
         <Paper style={styles.Paper}>
-          {exercises.map(([group, exercises], i) =>
+          {/* {exercises.map(([group, exercises], i) =>
             !category || category === group ? (
               <Fragment key={i}>
                 <Typography
@@ -56,7 +78,30 @@ const Exercise = ({
                 </List>
               </Fragment>
             ) : null
+          )} */}
+      <List component="nav" 
+      >
+        {exercises.map(([group, exercises], i) =>
+            !category || category === group ? (
+              <Fragment key={i}>
+                <ListItem button onClick={()=> this.handleClick(group)}>
+                  <ListItemText primary={group} style={{ textTransform: "capitalize" }}/>
+                  {this.state.open[group] ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
+
+                <Collapse in={this.state.open[group]} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                  {exercises.map(({ id, title }, i) => (
+                    <StyledListItem button>
+                      <ListItemText primary={title} />
+                    </StyledListItem>
+                  ))}
+                  </List>
+                </Collapse>
+              </Fragment>
+            ) : null
           )}
+    </List>
         </Paper>
       </Grid>
       <Grid item xs>
@@ -66,6 +111,6 @@ const Exercise = ({
         </Paper>
       </Grid>
     </Grid>
-  );
+  )}
 };
 export default Exercise;
