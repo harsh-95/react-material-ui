@@ -104,9 +104,10 @@ render(){
                   <List component="div" disablePadding>
                   {exercises.map(({ id, title }, i) => (
                     <Fragment key={i}>
-                      <StyledListItem button>
-                        <ListItemText primary={title} />
-                      </StyledListItem>
+                    <StyledListItem button>
+                      <ListItemText primary={title} />
+                    </StyledListItem>
+                    <div style={{borderBottom: '1px solid #eee'}}></div>
                     </Fragment>
                   ))}
                   </List>
