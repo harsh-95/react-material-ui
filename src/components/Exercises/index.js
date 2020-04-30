@@ -12,10 +12,12 @@ import {
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ViewListIcon from '@material-ui/icons/ViewList';
 
 const styles = {
   Paper: {
-    padding: 20,
+    padding: 15,
     marginTop: 10,
     marginBottom: 10,
     height: 450,
@@ -23,9 +25,15 @@ const styles = {
   }
 };
 
+const StyledListItemIcon = styled(ListItemIcon)({
+  minWidth: 0,
+  padding:2
+})
+
 const StyledListItem = styled(ListItem)({
   paddingLeft: 32,
-  paddingBottom: 0
+  paddingBottom: 0,
+  paddingTop: 0
 });
 
 class Exercise extends Component{
@@ -84,17 +92,22 @@ render(){
         {exercises.map(([group, exercises], i) =>
             !category || category === group ? (
               <Fragment key={i}>
-                <ListItem button onClick={()=> this.handleClick(group)}>
+                <ListItem button dense disableGutters onClick={()=> this.handleClick(group)}>
+                <StyledListItemIcon>
+                  <ViewListIcon fontSize="small" />
+                </StyledListItemIcon>
                   <ListItemText primary={group} style={{ textTransform: "capitalize" }}/>
                   {this.state.open[group] ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
-
+                <div style={{borderBottom: '1px solid #eee'}}></div>
                 <Collapse in={this.state.open[group]} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
                   {exercises.map(({ id, title }, i) => (
-                    <StyledListItem button>
-                      <ListItemText primary={title} />
-                    </StyledListItem>
+                    <Fragment key={i}>
+                      <StyledListItem button>
+                        <ListItemText primary={title} />
+                      </StyledListItem>
+                    </Fragment>
                   ))}
                   </List>
                 </Collapse>
