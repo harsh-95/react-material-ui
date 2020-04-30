@@ -104,7 +104,7 @@ render(){
                   <List component="div" disablePadding>
                   {exercises.map(({ id, title }, i) => (
                     <Fragment key={i}>
-                    <StyledListItem button>
+                    <StyledListItem button onClick={() => onSelect(id)}>
                       <ListItemText primary={title} />
                     </StyledListItem>
                     <div style={{borderBottom: '1px solid #eee'}}></div>
