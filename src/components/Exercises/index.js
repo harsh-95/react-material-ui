@@ -33,11 +33,30 @@ const styles = theme => ({
   },
   '@global':{
     'html,body,#root':{
-      height: '100%'
+      [theme.breakpoints.up('xs')]:{
+        height: '100%'
+      }
     }
   },
   container:{
-    height: 'calc(100% - 96px)'
+    [theme.breakpoints.up('sm')]:{
+      height: 'calc(100% - 96px)'
+    },
+    [theme.breakpoints.down('xs')]:{
+      height: 'auto',
+      minHeight: 'calc(100% - 96px)'
+    }
+  },
+  itemExerciseList:{
+    [theme.breakpoints.down('xs')]:{
+      height: '75%'
+    }
+  },
+  itemExerciseDesc:{
+    [theme.breakpoints.down('xs')]:{
+      minHeight: 224,
+      height: 'auto'
+    }
   }
 })
 
@@ -89,7 +108,7 @@ render(){
 
   return (
     <Grid container className={classes.container}>
-      <Grid item xs={12} sm={6} md={4} lg={3}>
+      <Grid item className={classes.itemExerciseList} xs={12} sm={6} md={4} lg={3}>
         <Paper className={classes.paper}>
           {/* {exercises.map(([group, exercises], i) =>
             !category || category === group ? (
@@ -151,7 +170,7 @@ render(){
     </List>
         </Paper>
       </Grid>
-      <Grid item xs>
+      <Grid item className={classes.itemExerciseDesc} xs>
         <Paper className={classes.paper}>
         {editMode
         ? <Form muscles={muscles}
