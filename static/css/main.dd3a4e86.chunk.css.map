@@ -1,0 +1,1 @@
+{"version":3,"sources":["styles.css"],"names":[],"mappings":"AAAA,EACE,6CACF,CAEA,KACE,wBAAyB,CACzB,kBACF","file":"main.dd3a4e86.chunk.css","sourcesContent":["* {\r\n  font-family: \"Varela Round\", sans-serif !important;\r\n}\r\n\r\nbody{\r\n  background-color: #211212;\r\n  margin: 0 !important;\r\n}\r\n"]}
