@@ -19,16 +19,27 @@ import IconButton from '@material-ui/core/IconButton';
 import {ExpandLess, ExpandMore, Edit } from '@material-ui/icons';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ViewListIcon from '@material-ui/icons/ViewList';
+import { withStyles } from '@material-ui/core/styles';
 
-const styles = {
-  Paper: {
+
+const styles = theme => ({
+  paper: {
     padding: 15,
-    marginTop: 10,
-    marginBottom: 10,
-    height: 462,
+    marginTop: 5,
+    marginBottom: 5,
+    marginRight: 5,
+    height: 'calc(100% - 40px)',
     overflowY: "auto"
+  },
+  '@global':{
+    'html,body,#root':{
+      height: '100%'
+    }
+  },
+  container:{
+    height: 'calc(100% - 96px)'
   }
-};
+})
 
 const StyledListItemIcon = styled(ListItemIcon)({
   minWidth: 0,
@@ -59,6 +70,7 @@ class Exercise extends Component{
 render(){
 
   const {
+    classes,
     exercises,
     category,
     onSelect,
@@ -76,9 +88,9 @@ render(){
   } = this.props;
 
   return (
-    <Grid container>
-      <Grid item xs={6} sm={5} md={4} lg={3}>
-        <Paper style={styles.Paper}>
+    <Grid container className={classes.container}>
+      <Grid item xs={12} sm={6} md={4} lg={3}>
+        <Paper className={classes.paper}>
           {/* {exercises.map(([group, exercises], i) =>
             !category || category === group ? (
               <Fragment key={i}>
@@ -107,22 +119,24 @@ render(){
                 <StyledListItemIcon>
                   <ViewListIcon fontSize="small" />
                 </StyledListItemIcon>
-                  <ListItemText primary={group} style={{ textTransform: "capitalize" }}/>
+                  <ListItemText style={{ textTransform: "capitalize" }} >
+                    <Typography color="secondary">{group}</Typography>
+                  </ListItemText>
                   {this.state.open[group] ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
                 <div style={{borderBottom: '1px solid #eee'}}></div>
-                <Collapse in={this.state.open[group]} timeout="auto" unmountOnExit>
+                <Collapse in={this.state.open[group]} timeout="auto"  color="secondary" unmountOnExit>
                   <List component="div" disablePadding>
                   {exercises.map(({ id, title }, i) => (
                     <Fragment key={i}>
                     <StyledListItem button onClick={() => onSelect(id)}>
                       <ListItemText primary={title} />
                       <ListItemSecondaryAction>
-                      <IconButton edge="end" aria-label="delete">
-                        <Edit onClick={()=>onSelectEdit(id)} />
+                      <IconButton edge="end" onClick={()=>onSelectEdit(id)}>
+                        <Edit color="primary" />
                       </IconButton>
-                      <IconButton edge="end" aria-label="delete">
-                        <DeleteIcon onClick={()=>onDelete(id)} />
+                      <IconButton edge="end" onClick={()=>onDelete(id)}>
+                        <DeleteIcon color="primary" />
                       </IconButton>
                     </ListItemSecondaryAction>
                     </StyledListItem>
@@ -138,13 +152,13 @@ render(){
         </Paper>
       </Grid>
       <Grid item xs>
-        <Paper style={styles.Paper}>
+        <Paper className={classes.paper}>
         {editMode
         ? <Form muscles={muscles}
                 exercise={exercise}
                 onSubmit={onEditExercise} />
         : <Fragment>
-          <Typography variant="h6">{title}</Typography>
+          <Typography color="secondary" variant="h6">{title}</Typography>
           <Typography variant="body2">{description}</Typography>
         </Fragment>}
         </Paper>
@@ -152,4 +166,4 @@ render(){
     </Grid>
   )}
 };
-export default Exercise;
+export default withStyles(styles)(Exercise);

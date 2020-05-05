@@ -40,6 +40,7 @@ class CreateExercise extends Component {
           size="small"
           onClick={this.handleToggle}
           style={{ position: "absolute", right: 5 }}
+          color="secondary"
         >
           <AddIcon />
         </Fab>

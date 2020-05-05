@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Header, Footer } from "./Layouts";
 import Exercise from "./Exercises/";
 import { muscles, exercises } from "../store";
@@ -75,7 +75,7 @@ export default class App extends Component {
     const exercises = this.fetchExercisesByMuscles();
 
     return (
-      <div>
+      <Fragment>
         <Header
           muscles={muscles}
           onExerciseCreate={this.handleExerciseCreate}
@@ -96,7 +96,7 @@ export default class App extends Component {
           category={this.state.category}
           onSelect={this.handleCategorySelect}
         />
-      </div>
+      </Fragment>
     );
   }
 }

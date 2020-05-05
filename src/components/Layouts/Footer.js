@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Paper, Tabs, Tab } from "@material-ui/core";
+import { AppBar, Tabs, Tab } from "@material-ui/core";
 
 const Footer = ({ muscles, category, onSelect }) => {
   const index = category
@@ -8,14 +8,14 @@ const Footer = ({ muscles, category, onSelect }) => {
     : 0;
 
   return (
-    <Paper>
+    <AppBar position="static">
       <Tabs
         value={index}
         onChange={(e, index) =>
           index !== 0 ? onSelect(muscles[index - 1]) : onSelect("")
         }
-        indicatorColor="primary"
-        textColor="primary"
+        indicatorColor="secondary"
+        textColor="secondary"
         variant="scrollable"
         scrollButtons="auto"
       >
@@ -24,7 +24,7 @@ const Footer = ({ muscles, category, onSelect }) => {
           <Tab key={i} label={muscle} />
         ))}
       </Tabs>
-    </Paper>
+    </AppBar>
   );
 };
 export default Footer;
