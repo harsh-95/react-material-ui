@@ -30,17 +30,44 @@ export default class App extends Component {
     });
   };
 
-  handleExcerciseSelect = id => {
+  handleExerciseSelect = id => {
     console.log(id);
     this.setState(prevState => ({
-      exercise: prevState.exercises.find(ex => ex.id === id)
+      exercise: prevState.exercises.find(ex => ex.id === id),
+      editMode: false
     }));
   };
 
   handleExerciseCreate = (exercise) => {
     console.log('bb');console.log(exercise);console.log(this.state.exercises);
-    this.setState(({excercises})=>({
+    this.setState(({exercises})=>({
       exercises: [...exercises, exercise]
+    }))
+  }
+
+  handleExerciseDelete = (id) => {
+    this.setState(({exercises})=>({
+      exercises: exercises.filter((ex)=> ex.id !== id),
+      editMode: false,
+      exercise:{}
+    }))
+  }
+
+  handleExerciseSelectEdit = (id) => {
+      console.log(id);
+      this.setState(prevState => ({
+        exercise: prevState.exercises.find(ex => ex.id === id),
+        editMode: true
+      }));
+  }
+
+  handleSubmitEditExercise = exercise => {
+    this.setState(({exercises})=>({
+        exercises: [
+          ...exercises.filter((ex)=> ex.id !== exercise.id),
+          exercise
+        ],
+        exercise
     }))
   }
 
@@ -57,7 +84,12 @@ export default class App extends Component {
           exercises={exercises}
           category={this.state.category}
           exercise={this.state.exercise}
-          onSelect={this.handleExcerciseSelect}
+          muscles={muscles}
+          editMode={this.state.editMode}
+          onSelect={this.handleExerciseSelect}
+          onDelete={this.handleExerciseDelete}
+          onSelectEdit={this.handleExerciseSelectEdit}
+          onEditExercise={this.handleSubmitEditExercise}
         />
         <Footer
           muscles={muscles}

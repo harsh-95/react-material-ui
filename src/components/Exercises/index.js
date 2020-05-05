@@ -6,13 +6,18 @@ import {
   List,
   ListItem,
   ListItemText,
+  ListItemSecondaryAction,
   styled
 } from "@material-ui/core";
 
+import Form from './Form';
+
 import Collapse from '@material-ui/core/Collapse';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import IconButton from '@material-ui/core/IconButton';
+
+import {ExpandLess, ExpandMore, Edit } from '@material-ui/icons';
+import DeleteIcon from '@material-ui/icons/Delete';
 import ViewListIcon from '@material-ui/icons/ViewList';
 
 const styles = {
@@ -20,7 +25,7 @@ const styles = {
     padding: 15,
     marginTop: 10,
     marginBottom: 10,
-    height: 450,
+    height: 462,
     overflowY: "auto"
   }
 };
@@ -57,16 +62,22 @@ render(){
     exercises,
     category,
     onSelect,
+    exercise,
     exercise: {
       id,
       title= "Welcome!",
       description= "Please select an exercise from left"
-    }
+    },
+    onDelete,
+    onSelectEdit,
+    onEditExercise,
+    editMode,
+    muscles
   } = this.props;
 
   return (
     <Grid container>
-      <Grid item xs>
+      <Grid item xs={6} sm={5} md={4} lg={3}>
         <Paper style={styles.Paper}>
           {/* {exercises.map(([group, exercises], i) =>
             !category || category === group ? (
@@ -106,6 +117,14 @@ render(){
                     <Fragment key={i}>
                     <StyledListItem button onClick={() => onSelect(id)}>
                       <ListItemText primary={title} />
+                      <ListItemSecondaryAction>
+                      <IconButton edge="end" aria-label="delete">
+                        <Edit onClick={()=>onSelectEdit(id)} />
+                      </IconButton>
+                      <IconButton edge="end" aria-label="delete">
+                        <DeleteIcon onClick={()=>onDelete(id)} />
+                      </IconButton>
+                    </ListItemSecondaryAction>
                     </StyledListItem>
                     <div style={{borderBottom: '1px solid #eee'}}></div>
                     </Fragment>
@@ -120,8 +139,14 @@ render(){
       </Grid>
       <Grid item xs>
         <Paper style={styles.Paper}>
+        {editMode
+        ? <Form muscles={muscles}
+                exercise={exercise}
+                onSubmit={onEditExercise} />
+        : <Fragment>
           <Typography variant="h6">{title}</Typography>
           <Typography variant="body2">{description}</Typography>
+        </Fragment>}
         </Paper>
       </Grid>
     </Grid>
