@@ -67,6 +67,7 @@ export default class App extends Component {
           ...exercises.filter((ex)=> ex.id !== exercise.id),
           exercise
         ],
+        editMode: false,
         exercise
     }))
   }
