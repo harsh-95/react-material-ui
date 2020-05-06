@@ -37,13 +37,28 @@ const styles = theme => ({
     }
   },
   container:{
-    height: 'calc(100% - 96px)'
-  },
-  item:{
+    height: 'calc(100% - 96px)',
     [theme.breakpoints.down('xs')]:{
-      height: '50%'
+      flexDirection: 'column',
+      flexWrap: 'unset'
     }
-  }
+  },
+  itemFirst:{
+    [theme.breakpoints.down('xs')]:{
+      height: '62%'
+    },
+    [theme.breakpoints.up('sm')]:{
+      height: '100%'
+    }
+  },
+  itemSecond:{
+    [theme.breakpoints.down('xs')]:{
+      height: '230px'
+    },
+    [theme.breakpoints.up('sm')]:{
+      height: '100%'
+    }
+  },
 })
 
 const StyledListItemIcon = styled(ListItemIcon)({
@@ -94,7 +109,7 @@ render(){
 
   return (
     <Grid container className={classes.container}>
-      <Grid item className={classes.item} xs={12} sm={6} md={4} lg={3}>
+      <Grid item className={classes.itemFirst} xs={12} sm={6} md={4} lg={3}>
         <Paper className={classes.paper}>
           {/* {exercises.map(([group, exercises], i) =>
             !category || category === group ? (
@@ -156,7 +171,7 @@ render(){
     </List>
         </Paper>
       </Grid>
-      <Grid item className={classes.item} xs>
+      <Grid item className={classes.itemSecond} xs>
         <Paper className={classes.paper}>
         {editMode
         ? <Form muscles={muscles}
