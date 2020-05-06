@@ -7,6 +7,8 @@ import {
   Fab
 } from "@material-ui/core";
 
+import { withContext } from '../../context';
+
 import Form from './Form';
 
 import AddIcon from "@material-ui/icons/Add";
@@ -30,9 +32,8 @@ class CreateExercise extends Component {
 
   render() {
 
-    const { title, muscle, description} = this.state,
-          { muscles, onCreate } = this.props
-
+    const { muscles } = this.props
+    
     return (
       <Fragment>
         <Fab
@@ -63,4 +64,4 @@ class CreateExercise extends Component {
   }
 }
 
-export default CreateExercise;
+export default withContext(CreateExercise);

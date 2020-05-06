@@ -3,12 +3,26 @@ import { Header, Footer } from "./Layouts";
 import Exercise from "./Exercises/";
 import { muscles, exercises } from "../store";
 
+import { Provider } from '../context';
+
 export default class App extends Component {
   state = {
     exercises: exercises,
     category: "",
     exercise: {}
   };
+
+  getContext = () => ({
+    ...this.state,
+    muscles,
+    exercises: this.fetchExercisesByMuscles(),
+    onCreate: this.handleExerciseCreate,
+    onSelectCategory: this.handleCategorySelect,
+    onDelete: this.handleExerciseDelete,
+    onSelectEdit: this.handleExerciseSelectEdit,
+    onEditExercise: this.handleSubmitEditExercise,
+    onSelect: this.handleExerciseSelect
+  })
 
   fetchExercisesByMuscles = () => {
     return Object.entries(
@@ -73,31 +87,12 @@ export default class App extends Component {
   }
 
   render() {
-    const exercises = this.fetchExercisesByMuscles();
-
     return (
-      <Fragment>
-        <Header
-          muscles={muscles}
-          onExerciseCreate={this.handleExerciseCreate}
-        />
-        <Exercise
-          exercises={exercises}
-          category={this.state.category}
-          exercise={this.state.exercise}
-          muscles={muscles}
-          editMode={this.state.editMode}
-          onSelect={this.handleExerciseSelect}
-          onDelete={this.handleExerciseDelete}
-          onSelectEdit={this.handleExerciseSelectEdit}
-          onEditExercise={this.handleSubmitEditExercise}
-        />
-        <Footer
-          muscles={muscles}
-          category={this.state.category}
-          onSelect={this.handleCategorySelect}
-        />
-      </Fragment>
+      <Provider value={this.getContext()}>
+        <Header />
+        <Exercise />
+        <Footer />
+      </Provider>
     );
   }
 }

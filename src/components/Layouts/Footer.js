@@ -1,8 +1,8 @@
 import React from "react";
-
+import { withContext } from '../../context';
 import { AppBar, Tabs, Tab } from "@material-ui/core";
 
-const Footer = ({ muscles, category, onSelect }) => {
+const Footer = ({category, muscles, onSelectCategory}) => {
   const index = category
     ? muscles.findIndex(group => group === category) + 1
     : 0;
@@ -12,7 +12,7 @@ const Footer = ({ muscles, category, onSelect }) => {
       <Tabs
         value={index}
         onChange={(e, index) =>
-          index !== 0 ? onSelect(muscles[index - 1]) : onSelect("")
+          index !== 0 ? onSelectCategory(muscles[index - 1]) : onSelectCategory("")
         }
         indicatorColor="secondary"
         textColor="secondary"
@@ -27,4 +27,4 @@ const Footer = ({ muscles, category, onSelect }) => {
     </AppBar>
   );
 };
-export default Footer;
+export default withContext(Footer);

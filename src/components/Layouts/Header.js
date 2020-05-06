@@ -2,15 +2,12 @@ import React from "react";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import CreateExercise from "../Exercises/Dialog";
 
-const Header = ({ muscles, onExerciseCreate }) => {
+const Header = ({ onExerciseCreate }) => {
   return (
     <AppBar position="static">
       <Toolbar variant="dense">
         <Typography variant="h5">Exercises</Typography>
-        <CreateExercise
-          muscles={muscles}
-          onCreate={onExerciseCreate}
-        />
+        <CreateExercise />
       </Toolbar>
     </AppBar>
   );

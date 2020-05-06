@@ -20,7 +20,7 @@ import {ExpandLess, ExpandMore, Edit } from '@material-ui/icons';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import { withStyles } from '@material-ui/core/styles';
-
+import { withContext } from '../../context';
 
 const styles = theme => ({
   paper: {
@@ -186,4 +186,4 @@ render(){
     </Grid>
   )}
 };
-export default withStyles(styles)(Exercise);
+export default withContext(withStyles(styles)(Exercise));
